@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme{
+     --font-sans: 'Public Sans', sans-serif;
+}
+
+@theme static {
+    --color-pro-50: #edf2f7;
+    --color-pro-100: #dce6ef;
+    --color-pro-500: #4f7fb0;
+    --color-pro-700: #2f4c6a;
+    --color-pro-950: #0b1219;
+
+    --color-life-50: #fcf7e8;
+    --color-life-100: #faefd1;
+    --color-life-400: #eabf48;
+    --color-life-500: #e4af1b;
+    --color-life-950: #201804;
+
+    --color-neutral-white: #ffffff;
+    --color-neutral-bg: #fbfbfb
+    --color-neutral-line: #e5e5e5;
+    --color-neutral-text: #1a1a1a;
+    --color-neutral-sub: #666666;
+
+    --color-spotify-green: #1DB954;
+    --color-discord-blurple: #5865F2;
+
+    --color-brand-primary: var(--color-pro-700);
+    --color-brand-secundary: var(--color-pro-500);
+    --color-brand-text: var(--color-neutral-white);
+}
+
+[data-context="personal"] {
+    --color-brand-primary: var(--color-life-500);
+    --color-brand-secundary: var(--color-life-400);
+    --color-brand-text: var(--color-life-950);
+}
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--color-neutral-bg);
+    color: var(--color-neutral-text);
+}
+
+:root {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
