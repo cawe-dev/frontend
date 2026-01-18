@@ -34,18 +34,15 @@ onMounted(async () => {
     try {
       const tokens = await exchangeCodeForToken(code)
       const accessToken = tokens.access_token
+      const refreshToken = tokens.refresh_token
 
       authStore.token = accessToken
 
       const userResponse = await api<any>('/auth/me')
 
-      authStore.setSession(accessToken, userResponse)
+      authStore.setSession(accessToken, userResponse, refreshToken)
 
-      if (authStore.user?.role == 'WRITER') {
-        router.push('/admin/dashboard')
-      }
-
-      router.push('/')
+      router.push('/admin/dashboard')
 
     } catch (err: any) {
       if (err.data) console.error('Details:', err.data)
