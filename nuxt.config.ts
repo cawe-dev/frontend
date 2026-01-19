@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { swr: 3600 },
+    '/': { ssr: true },
 
     '/blog/**': { swr: true },
 

@@ -11,11 +11,17 @@ export const useAuthStore = defineStore('auth', () => {
     const config = useRuntimeConfig()
 
     const token = useCookie('auth_token', {
-        maxAge: 60 * 60
+        maxAge: 60 * 60,
+        path: '/',
+        sameSite: 'lax',
+        watch: true
     })
 
     const refreshToken = useCookie('auth_refresh_token', {
-        maxAge: 60 * 60 * 24 * 30
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+        sameSite: 'lax',
+        watch: true
     })
 
     const user = ref<User | null>(null)
