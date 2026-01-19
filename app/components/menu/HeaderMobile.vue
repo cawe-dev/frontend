@@ -5,6 +5,13 @@ const { context } = useContext()
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 
+const handleLogin = () => {
+  navigateTo('/login')
+}
+
+const handleLogout = () => {
+  authStore.logout()
+}
 </script>
 
 <template>
@@ -19,7 +26,7 @@ const authStore = useAuthStore()
     <UNavigationMenu />
 
     <template #right>
-      <div class="inline-flex bg-black/10 p-1 mr-2 rounded-full ">
+      <div class="inline-flex bg-black/10 p-1 mr-2 rounded-full">
         <button @click="context = 'professional'" class="px-1 md:px-10 py-2 rounded-full text-sm font-bold"
           :class="context === 'professional' ? 'bg-brand-secundary text-white' : 'text-brand-text'">
           Profissional
@@ -32,7 +39,7 @@ const authStore = useAuthStore()
 
       <UTooltip text="News" :kbds="['meta', 'N']">
         <UButton class="active:bg-brand-secundary" :class="context === 'professional' ? 'text-white' : 'text-black'"
-          variant="ghost" icon="i-mdi-light:bell" aria-label="GitHub" />
+          variant="ghost" icon="i-mdi-light:bell" aria-label="News" />
       </UTooltip>
 
       <div class="hidden md:block">
@@ -45,13 +52,13 @@ const authStore = useAuthStore()
 
       <UTooltip v-if="!authStore.isAuthenticated" text="Login" :kbds="['meta', 'L']" class="w-12">
         <UButton class="active:bg-brand-secundary bg-black/10 border md:w-20"
-          :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost"
-          @click="navigateTo('/login')" icon="i-ph:sign-in-fill" :block="true" aria-label="Login" />
+          :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost" @click="handleLogin"
+          icon="i-ph:sign-in-fill" :block="true" aria-label="Login" />
       </UTooltip>
 
       <UTooltip v-else text="Logout" :kbds="['meta', 'L']" class="w-12">
         <UButton class="active:bg-brand-secundary bg-black/10 border md:w-20"
-          :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost" @click="authStore.logout()"
+          :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost" @click="handleLogout"
           icon="i-ph:sign-out-fill" :block="true" aria-label="Logout" />
       </UTooltip>
     </template>
@@ -61,6 +68,3 @@ const authStore = useAuthStore()
 
   </UHeader>
 </template>
-
-<script setup>
-</script>
