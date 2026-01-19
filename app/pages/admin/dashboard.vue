@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useAuthStore } from '~~/stores/auth'
 
 const authStore = useAuthStore()
