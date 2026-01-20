@@ -6,6 +6,36 @@ const router = useRouter()
 const authStore = useAuthStore()
 const config = useRuntimeConfig()
 const api = useBackend()
+const toast = useToast()
+
+interface LoginToastConfig {
+  title: string;
+  description: string;
+  color: 'success' | 'error';
+}
+
+const LOGIN_TOAST_CONFIG: Record<'success' | 'error', LoginToastConfig> = {
+  success: {
+    title: 'Conectado com sucesso!',
+    description: 'Bem-vindo(a) de volta!',
+    color: 'success',
+  },
+  error: {
+    title: 'Falha no login',
+    description: 'Verifique suas credenciais e tente novamente.',
+    color: 'error',
+  },
+};
+
+function showLoginToast(type: 'success' | 'error') {
+  const { title, description, color } = LOGIN_TOAST_CONFIG[type];
+
+  toast.add({
+    title,
+    description,
+    color
+  });
+}
 
 const exchangeCodeForToken = async (code: string) => {
   const tokenUrl = `${config.public.cognitoDomain}/oauth2/token`
@@ -42,13 +72,16 @@ onMounted(async () => {
 
       authStore.setSession(accessToken, userResponse, refreshToken)
 
+      showLoginToast('success')
       router.push('/admin/dashboard')
 
     } catch (err: any) {
+      showLoginToast('error')
       if (err.data) console.error('Details:', err.data)
       router.push('/')
     }
   } else {
+    showLoginToast('error')
     router.push('/')
   }
 })
