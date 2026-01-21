@@ -31,7 +31,7 @@ const removeItem = (idToRemove: number) => {
 </script>
 
 <template>
-    <UFormGroup label="Tags">
+    <UFormField label="Tags">
         <USelectMenu v-model="selectedIds" :items="items" value-key="id" multiple searchable create-item
             @create="handleCreate" placeholder="Selecione ou crie tags...">
         </USelectMenu>
@@ -44,5 +44,5 @@ const removeItem = (idToRemove: number) => {
                     @click="removeItem(item.id)" />
             </UBadge>
         </div>
-    </UFormGroup>
+    </UFormField>
 </template>

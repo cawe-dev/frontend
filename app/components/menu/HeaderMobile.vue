@@ -17,7 +17,6 @@ const handleLogout = () => {
 <template>
   <UHeader :toggle="{ disabled: true, class: 'hidden' }" class="bg-brand-secundary">
     <template #title>
-      <Logo class="h-6 w-auto" />
       <h1 :class="context === 'professional' ? 'text-white' : 'text-black'">
         cawe.dev
       </h1>
