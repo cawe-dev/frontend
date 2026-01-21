@@ -17,6 +17,17 @@ export default defineNuxtPlugin(() => {
         },
 
         async onResponseError({ response }) {
+            if (response.status === 401) {
+                const refreshed = await authStore.refreshAccessToken()
+
+                if (refreshed) {
+                    return
+                } else {
+                    authStore.logout()
+                    return
+                }
+            }
+
             if (response.status >= 500) {
                 toast.add({
                     title: 'Erro no servidor',
@@ -32,7 +43,6 @@ export default defineNuxtPlugin(() => {
                     color: 'warning'
                 })
             }
-            authStore.logout()
         }
     })
 
