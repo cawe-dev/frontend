@@ -91,9 +91,9 @@ onMounted(async () => {
   <div class="flex flex-col items-center justify-center min-h-screen">
     <UCard>
       <div class="text-center p-6">
-        <UIcon name="i-heroicons-arrow-path" class="animate-spin text-4xl mb-4 text-primary" />
-        <h1 class="text-xl font-bold">A autenticar...</h1>
-        <p class="text-gray-500 text-sm mt-2">A trocar chaves de segurança.</p>
+        <UIcon name="i-heroicons-arrow-path" class="animate-spin bg-brand-primary text-4xl mb-4 text-primary" />
+        <h1 class="text-xl font-bold">Autenticando...</h1>
+        <p class="text-gray-500 text-sm mt-2">Aguarde alguns secundos.</p>
       </div>
     </UCard>
   </div>
