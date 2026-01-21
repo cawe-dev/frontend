@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useAuthStore } from '~~/stores/auth'
+import { useAuthStore, type User } from '~~/stores/auth'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const config = useRuntimeConfig()
-const api = useBackend()
+const { $api } = useNuxtApp()
 const toast = useToast()
 
 interface LoginToastConfig {
@@ -68,7 +68,7 @@ onMounted(async () => {
 
       authStore.token = accessToken
 
-      const userResponse = await api<any>('/auth/me')
+      const userResponse = await $api<User>('/auth/me')
 
       authStore.setSession(accessToken, userResponse, refreshToken)
 

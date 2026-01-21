@@ -1,26 +1,25 @@
 import { useAuthStore } from '~~/stores/auth'
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware((to) => {
   const authStore = useAuthStore()
 
   const publicRoutes = ['/', '/auth/callback', '/login']
+  const isPublicRoute = publicRoutes.includes(to.path)
 
-  if (!publicRoutes.includes(to.path) && !authStore.isAuthenticated) {
+  if (!isPublicRoute && !authStore.isAuthenticated) {
     return navigateTo('/login')
   }
-  
-  if (to.path.startsWith('/admin') && authStore.user?.role !== 'WRITER') {
-    return navigateTo('/') 
-  }
+
   if (to.path === '/login' && authStore.isAuthenticated) {
-    if (authStore.user?.role === 'WRITER') {
-      return navigateTo('/admin/dashboard')
-    }
+    return navigateTo(authStore.user?.role === 'WRITER' ? '/admin/dashboard' : '/')
+  }
+
+  if (to.path.startsWith('/admin') && authStore.user?.role !== 'WRITER') {
     return navigateTo('/')
   }
 
-  if (to.path === '/logout'){
-    return authStore.logout();
+  if (to.path === '/logout') {
+    authStore.logout()
+    return navigateTo('/')
   }
-
 })
