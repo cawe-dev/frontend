@@ -50,7 +50,7 @@ const onSubmit = async () => {
   }
 
   try {
-    await $api('/v1/posts', { method: 'POST', body: payload })
+    await $api('/posts', { method: 'POST', body: payload })
     toast.add({ title: 'Sucesso', description: 'Post publicado!', color: 'success' })
     router.push('/admin/dashboard')
   } catch (error) {
