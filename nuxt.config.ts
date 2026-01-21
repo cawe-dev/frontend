@@ -3,15 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
+  modules: ['@nuxt/ui'],
   css: ['~/assets/css/main.css'],
 
-  imports: {
-    dirs: ['stores']
-  },
-
   routeRules: {
-    '/': { ssr: true },
+    '/': { swr: 3600 },
 
     '/blog/**': { swr: true },
 
@@ -21,21 +17,9 @@ export default defineNuxtConfig({
     '/admin/**': { ssr: false },
   },
 
-  pinia: {
-    storesDirs: ['stores']
-  },
-
-  piniaPluginPersistedstate: {
-    storage: 'localStorage',
-    debug: true,
-  },
-
   runtimeConfig: {
     public: {
-      apiBaseUrl: '',
-      cognitoDomain: '',
-      cognitoClientId: '',
-      cognitoRedirectUri: ''
+      apiBase: 'http://localhost:8080/api'
     }
   },
 
