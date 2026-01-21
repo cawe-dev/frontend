@@ -26,6 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const user = ref<User | null>(null)
     const isAuthenticated = computed(() => !!token.value)
+    let refreshPromise: Promise<boolean> | null = null
 
     function setSession(accessToken: string, newUser: User, newRefreshToken?: string) {
         token.value = accessToken
@@ -36,40 +37,50 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     async function refreshAccessToken(): Promise<boolean> {
-        try {
-            if (!refreshToken.value) return false
+        if (refreshPromise) return refreshPromise
 
-            const tokenUrl = `${config.public.cognitoDomain}/oauth2/token`
-
-            const body = new URLSearchParams()
-            body.append('grant_type', 'refresh_token')
-            body.append('client_id', config.public.cognitoClientId)
-            body.append('refresh_token', refreshToken.value)
-
-            const data = await $fetch<any>(tokenUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: body
-            })
-
-            if (data.access_token) {
-                token.value = data.access_token
-                if (data.refresh_token) refreshToken.value = data.refresh_token
-                return true
-            }
-            return false
-
-        } catch (error) {
+        if (!refreshToken.value) {
             logout()
             return false
         }
+
+        refreshPromise = (async () => {
+            try {
+                const tokenUrl = `${config.public.cognitoDomain}/oauth2/token`
+                const body = new URLSearchParams()
+                body.append('grant_type', 'refresh_token')
+                body.append('client_id', config.public.cognitoClientId)
+                body.append('refresh_token', refreshToken.value!)
+
+                const data = await $fetch<any>(tokenUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body
+                })
+
+                if (data.access_token) {
+                    token.value = data.access_token
+                    if (data.refresh_token) refreshToken.value = data.refresh_token
+                    return true
+                }
+                return false
+            } catch (error) {
+                logout()
+                return false
+            } finally {
+                refreshPromise = null
+            }
+        })()
+
+        return refreshPromise
     }
 
     function logout() {
         token.value = null
         refreshToken.value = null
         user.value = null
-
+        refreshPromise = null
+        
         const logoutUrl = `${config.public.cognitoDomain}/logout?client_id=${config.public.cognitoClientId}&logout_uri=${window.location.origin}`
         window.location.href = logoutUrl
     }
