@@ -31,12 +31,16 @@
 
     --color-brand-primary: var(--color-pro-700);
     --color-brand-secundary: var(--color-pro-500);
+    --color-brand-dark: var(--color-pro-950);
+    --color-brand-soft: var(--color-pro-200);
     --color-brand-text: var(--color-neutral-white);
 }
 
 [data-context="personal"] {
     --color-brand-primary: var(--color-life-500);
     --color-brand-secundary: var(--color-life-200);
+    --color-brand-dark: var(--color-life-950);
+    --color-brand-soft: var(--color-life-200);
     --color-brand-text: var(--color-life-950);
 }
 
