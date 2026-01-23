@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+definePageMeta({
+  layout: 'blog',
+})
+onMounted(() => {
+  navigateTo('/blog/')
+})
 </script>
 
 <template>

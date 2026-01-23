@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import type { PostResponse, PostContentResponse } from '~/types/api'
+import type { PostResponse } from '~/types/api'
 
 definePageMeta({ layout: 'dashboard' })
 
-const { $api } = useNuxtApp()
-const router = useRouter()
 const toast = useToast()
 const { fetchAllPosts } = usePosts()
 
