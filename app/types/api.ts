@@ -22,6 +22,35 @@ export interface PostContent {
     order?: number
 }
 
+export interface PostContentResponse {
+    uuid: string;
+    id?: number;
+    type: ContentType
+    text?: string
+    mediaUrl?: string
+    caption?: string
+    references?: any[]
+    order?: number
+}
+
+export interface Post {
+    id?: number;
+    title: string;
+    categoryIds: number[];
+    tagIds: number[];
+    contents: PostContent[];
+}
+
+export interface PostResponse {
+    id: number;
+    title: string;
+    categories: Category[];
+    tags: Tag[];
+    createdAt: string;
+    updatedAt: string;
+    contents: PostContentResponse[];
+}
+
 export interface ReferenceDefinition {
     id: number;
     title: string;

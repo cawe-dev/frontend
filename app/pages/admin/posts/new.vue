@@ -1,12 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { PostContent } from '~/types/api'
 import PostContentManager from '~~/app/components/admin/PostContentManager.vue'
 
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'dashboard' })
 
-const { $api } = useNuxtApp()
 const router = useRouter()
 const toast = useToast()
+const { createOnePost } = usePosts()
 
 const state = reactive({
   title: '',
@@ -34,7 +34,7 @@ const onSubmit = async () => {
 
   isSubmitting.value = true
   try {
-    await $api('/posts', { method: 'POST', body: payload })
+    const post = await createOnePost(payload)
     toast.add({ title: 'Sucesso', description: 'Post publicado!', color: 'success' })
     router.push('/admin/dashboard')
   } catch (error) {

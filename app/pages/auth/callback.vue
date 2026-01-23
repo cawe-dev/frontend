@@ -77,7 +77,6 @@ onMounted(async () => {
 
     } catch (err: any) {
       showLoginToast('error')
-      if (err.data) console.error('Details:', err.data)
       router.push('/')
     }
   } else {

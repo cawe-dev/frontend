@@ -13,7 +13,8 @@ useHead({
 
 <template>
   <UApp :toaster="toaster">
-    <Header />
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </UApp>
 </template>
