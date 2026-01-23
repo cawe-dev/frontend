@@ -11,6 +11,8 @@ export interface Tag {
 export type ContentType = 'TEXT' | 'IMAGE' | 'VIDEO'
 
 export interface PostContent {
+    uuid: string;
+    id?: number;
     type: ContentType
     text?: string
     imageUrl?: string
