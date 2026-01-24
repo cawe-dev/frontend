@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useContext } from '~/composables/useContext'
+import { useAuthStore } from '~~/stores/auth'
 
 const { context, toggleContext } = useContext()
+const authStore = useAuthStore()
 
 const searchOpen = ref(false)
 const mobileMenuOpen = ref(false)
@@ -43,6 +45,14 @@ const getChangelogIconColor = (type: string) => {
         case 'improvement': return 'text-[var(--ui-success)]'
         default: return 'text-[var(--ui-text-muted)]'
     }
+}
+
+const handleLogin = () => {
+    navigateTo('/login')
+}
+
+const handleLogout = () => {
+    authStore.logout()
 }
 </script>
 
@@ -108,10 +118,10 @@ const getChangelogIconColor = (type: string) => {
                 <!-- Theme Toggle -->
                 <button @click="toggleContext"
                     class="relative flex h-9 items-center gap-1 rounded-full border border-default bg-accented p-1 transition-colors"
-                    :aria-label="`Alternar para contexto ${context.value === 'professional' ? 'pessoal' : 'profissional'}`">
+                    :aria-label="`Alternar para contexto ${context === 'professional' ? 'pessoal' : 'profissional'}`">
                     <span :class="[
                         'flex h-7 w-7 items-center justify-center rounded-full transition-all',
-                        context.value === 'professional'
+                        context === 'professional'
                             ? 'bg-primary text-inverted'
                             : 'text-muted'
                     ]">
@@ -119,13 +129,21 @@ const getChangelogIconColor = (type: string) => {
                     </span>
                     <span :class="[
                         'flex h-7 w-7 items-center justify-center rounded-full transition-all',
-                        context.value === 'personal'
+                        context === 'personal'
                             ? 'bg-primary text-inverted'
                             : 'text-muted'
                     ]">
                         <UIcon name="i-lucide-coffee" class="h-4 w-4" />
                     </span>
                 </button>
+
+                <UButton v-if="!authStore.isAuthenticated" class="bg-primary hover:bg-primary/50 text-inverted md:w-20"
+                    :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost"
+                    @click="handleLogin" icon="i-ph:sign-in-fill" :block="true" aria-label="Login" />
+
+                <UButton v-else text="Logout" class="bg-primary hover:bg-primary/50 text-inverted md:w-20"
+                    :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost"
+                    @click="handleLogout" icon="i-ph:sign-out-fill" :block="true" aria-label="Logout" />
 
                 <!-- Mobile Menu Toggle -->
                 <UButton variant="ghost" size="sm" :icon="mobileMenuOpen ? 'i-lucide-x' : 'i-lucide-menu'"
