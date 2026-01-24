@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <MenuHeaderMobile />
+  <AppHeader />
   <slot />
 </template>
 
