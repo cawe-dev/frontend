@@ -14,6 +14,10 @@ export const usePosts = () => {
     }
   }
 
+  const fetchOnePost = async (id: string) => {
+    return await $api<PostResponse>(`/posts/${id}`)
+  }
+
   const createOnePost = async (payload: Post) => {
     return await $api<Post>('/posts', {
       method: 'POST',
@@ -21,5 +25,5 @@ export const usePosts = () => {
     })
   }
 
-  return { fetchAllPosts, createOnePost }
+  return { fetchAllPosts, fetchOnePost, createOnePost }
 }

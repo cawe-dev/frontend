@@ -29,7 +29,7 @@ export interface PostContentResponse {
     text?: string
     mediaUrl?: string
     caption?: string
-    references?: any[]
+    references?: TextReference[]
     order?: number
 }
 
@@ -60,6 +60,7 @@ export interface ReferenceDefinition {
 
 export interface TextReference {
     term: string;
+    definition: string;
     startOffset: number;
     endOffset: number;
     existingReferenceId?: number;

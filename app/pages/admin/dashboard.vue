@@ -15,9 +15,8 @@ const authStore = useAuthStore()
   </div>
 
   <div class="flex space-x-4 py-4 justify-end">
-    <UButton label="Criar Novo Post" icon="i-lucide-plus" class="bg-brand-primary"
-      @click="navigateTo('/admin/posts/new')" />
-    <UButton label="Gerenciar Posts" icon="i-lucide-list" class="bg-brand-secundary"
+    <UButton label="Criar Novo Post" icon="i-lucide-plus" class="bg-primary" @click="navigateTo('/admin/posts/new')" />
+    <UButton label="Gerenciar Posts" icon="i-lucide-list" class="bg-accented text-black border border-gray-700 hover:bg-accented/60"
       @click="navigateTo('/admin/posts/list')" />
   </div>
 
