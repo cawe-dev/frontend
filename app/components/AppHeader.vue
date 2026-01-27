@@ -118,7 +118,7 @@ const handleLogout = () => {
                 <!-- Theme Toggle -->
                 <button @click="toggleContext"
                     class="relative flex h-9 items-center gap-1 rounded-full border border-default bg-accented p-1 transition-colors"
-                    :aria-label="`Alternar para contexto ${context === 'professional' ? 'pessoal' : 'profissional'}`">
+                    :aria-label="`Alternar para contexto ${context === 'professional' ? 'personal' : 'profissional'}`">
                     <span :class="[
                         'flex h-7 w-7 items-center justify-center rounded-full transition-all',
                         context === 'professional'
@@ -136,34 +136,7 @@ const handleLogout = () => {
                         <UIcon name="i-lucide-coffee" class="h-4 w-4" />
                     </span>
                 </button>
-
-                <UButton v-if="!authStore.isAuthenticated" class="bg-primary hover:bg-primary/50 text-inverted md:w-20"
-                    :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost"
-                    @click="handleLogin" icon="i-ph:sign-in-fill" :block="true" aria-label="Login" />
-
-                <UButton v-else text="Logout" class="bg-primary hover:bg-primary/50 text-inverted md:w-20"
-                    :class="context === 'professional' ? 'text-white' : 'text-black'" variant="ghost"
-                    @click="handleLogout" icon="i-ph:sign-out-fill" :block="true" aria-label="Logout" />
-
-                <!-- Mobile Menu Toggle -->
-                <UButton variant="ghost" size="sm" :icon="mobileMenuOpen ? 'i-lucide-x' : 'i-lucide-menu'"
-                    class="md:hidden" square @click="mobileMenuOpen = !mobileMenuOpen" />
             </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div v-if="mobileMenuOpen" class="border-t border-default bg-default px-4 py-4 md:hidden">
-            <div class="mb-4">
-                <UInput v-model="searchQuery" type="search" placeholder="Pesquisar posts, tags..." class="w-full"
-                    icon="i-lucide-search" />
-            </div>
-            <nav class="flex flex-col gap-2">
-                <NuxtLink v-for="item in navItems" :key="item.to" :to="item.to"
-                    class="rounded-md px-3 py-2 text-sm font-medium text-default transition-colors hover:bg-accented"
-                    @click="mobileMenuOpen = false">
-                    {{ item.label }}
-                </NuxtLink>
-            </nav>
         </div>
     </header>
 </template>

@@ -2,7 +2,8 @@ import type { PostResponse } from '~/types/api'
 
 export const usePostFeed = (initialPosts: Ref<PostResponse[]>) => {
     const searchQuery = ref('')
-    const selectedCategory = ref<'all' | 'professional' | 'personal'>('all')
+    const selectedCategory = ref<string[]>([])
+    const selectedType = ref<'professional' | 'personal'>('professional')
     const selectedTags = ref<string[]>([])
     const viewMode = ref<'grid' | 'list'>('grid')
 
@@ -19,9 +20,16 @@ export const usePostFeed = (initialPosts: Ref<PostResponse[]>) => {
     const sortedAndFilteredPosts = computed(() => {
         let result = initialPosts.value
 
-        if (selectedCategory.value !== 'all') {
-            result = result.filter(p => p.category === selectedCategory.value)
+        if (selectedType.value === 'professional' || selectedType.value === 'personal') {
+            result = result.filter(p => p.type === selectedType.value.toUpperCase())
         }
+
+        if (selectedCategory.value.length > 0) {
+            result = result.filter(p =>
+                selectedCategory.value.every(cat => p.categories?.includes(cat))
+            )
+        }
+
 
         if (selectedTags.value.length > 0) {
             result = result.filter(p =>
@@ -51,6 +59,7 @@ export const usePostFeed = (initialPosts: Ref<PostResponse[]>) => {
     return {
         searchQuery,
         selectedCategory,
+        selectedType,
         selectedTags,
         viewMode,
         allTags,

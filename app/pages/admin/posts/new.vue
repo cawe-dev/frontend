@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { PostContent } from '~/types/api'
+import type { PostContent, PostType } from '~/types/api'
 import PostContentManager from '~~/app/components/admin/PostContentManager.vue'
 
 definePageMeta({ layout: 'dashboard' })
@@ -10,6 +10,7 @@ const { createOnePost } = usePosts()
 
 const state = reactive({
   title: '',
+  type: 'PROFESSIONAL' as PostType,
   categoryIds: [] as number[],
   tagIds: [] as number[],
   contents: [] as PostContent[]
@@ -24,6 +25,7 @@ const onSubmit = async () => {
   }
   const payload = {
     title: state.title,
+    type: state.type,
     categoryIds: state.categoryIds,
     tagIds: state.tagIds,
     contents: state.contents.map((c, index) => ({
@@ -67,6 +69,7 @@ const onSubmit = async () => {
           <div class="space-y-4">
             <AdminCategorySelector v-model="state.categoryIds" />
             <AdminTagSelector v-model="state.tagIds" />
+            <AdminPostTypeSelector v-model="state.type" />
           </div>
         </UCard>
       </div>

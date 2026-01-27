@@ -7,6 +7,7 @@ import { usePosts } from '~/composables/usePosts'
 import { useAsyncData } from '#app'
 
 const route = useRoute()
+const { context } = useContext()
 const { fetchOnePost } = usePosts()
 
 const viewMode = ref<'universal' | 'technical'>('universal')
@@ -156,7 +157,7 @@ const shareOnX = () => {
             </div>
 
             <!-- View Mode Toggle (Sticky) -->
-            <div
+            <div v-if="context === 'professional'"
               class="sticky top-2 z-40 -mx-4 mb-8 bg-(--ui-bg)/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:rounded-lg sm:border sm:border-default sm:px-4">
               <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center gap-2">

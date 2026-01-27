@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware((to) => {
   const authStore = useAuthStore()
 
   const publicRoutes = ['/', '/auth/callback', '/login']
-  const isPublicRoute = publicRoutes.includes(to.path)
+  const isPublicRoute = publicRoutes.includes(to.path) || to.path.startsWith('/blog');
 
   if (!isPublicRoute && !authStore.isAuthenticated) {
     return navigateTo('/login')

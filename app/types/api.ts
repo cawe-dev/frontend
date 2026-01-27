@@ -9,6 +9,8 @@ export interface Tag {
 }
 
 export type ContentType = 'TEXT' | 'IMAGE' | 'VIDEO'
+export type PostType = 'PROFESSIONAL' | 'PERSONAL'
+
 
 export interface PostContent {
     uuid: string;
@@ -36,6 +38,7 @@ export interface PostContentResponse {
 export interface Post {
     id?: number;
     title: string;
+    type: PostType;
     categoryIds: number[];
     tagIds: number[];
     contents: PostContent[];
@@ -44,6 +47,7 @@ export interface Post {
 export interface PostResponse {
     id: number;
     title: string;
+    type: PostType;
     categories: Category[];
     tags: Tag[];
     createdAt: string;

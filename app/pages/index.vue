@@ -13,6 +13,7 @@ const { data: posts } = await useAsyncData('home-posts', () => fetchAllPosts())
 
 const {
   searchQuery,
+  selectedType,
   selectedCategory,
   selectedTags,
   viewMode,
@@ -24,6 +25,11 @@ const {
 onMounted(() => {
   initializeContext()
 })
+
+watch(context, (newContext) => {
+  selectedType.value = newContext
+})
+
 </script>
 
 <template>

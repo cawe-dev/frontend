@@ -24,7 +24,7 @@ onMounted(async () => {
       <UCard v-for="post in posts" :key="post.id" class="hover:shadow-lg transition-shadow md:max-w-2xl mx-auto">
         <template #header>
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold">{{ post.title }}</h2>
+            <h2 class="text-xl font-bold">{{ post.title }} - {{ post.type }}</h2>
             <h2>
               <b>Publicação:</b>
               {{ new Date(post.createdAt).toLocaleString('pt-BR', {

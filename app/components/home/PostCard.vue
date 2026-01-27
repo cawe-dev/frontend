@@ -42,7 +42,8 @@ const toggleSpoiler = () => {
             authors: 'hidden',
         }">
             <template #badge>
-                <UBadge label="Profissional" color="primary" variant="solid" />
+                <UBadge :label="post.type === 'PERSONAL' ? 'Pessoal' : 'Profissional'" color="primary"
+                    variant="solid" />
             </template>
 
             <template #date>
